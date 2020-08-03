@@ -26,6 +26,8 @@ export default class CreateTransaction1596398354627
           {
             name: 'value',
             type: 'decimal',
+            precision: 10,
+            scale: 2,
           },
           {
             name: 'category_id',
@@ -46,8 +48,10 @@ export default class CreateTransaction1596398354627
         foreignKeys: [
           {
             columnNames: ['category_id'],
-            referencedTableName: 'Category',
+            referencedTableName: 'Categories',
             referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
           },
         ],
       }),
