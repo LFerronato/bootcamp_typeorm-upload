@@ -12,14 +12,14 @@ interface Balance {
 class TransactionsRepository extends Repository<Transaction> {
   public async getBalance(): Promise<Balance> {
     const transactions = await this.find()
-    const balance = transactions.reduce(
+    const { income, outcome } = transactions.reduce(
       (accumulator: Balance, tr: Transaction) => {
         switch (tr.type) {
           case 'income':
-            accumulator.income += tr.value
+            accumulator.income += Number(tr.value)
             break
           case 'outcome':
-            accumulator.outcome += tr.value
+            accumulator.outcome += Number(tr.value)
             break
           default:
             break
@@ -32,8 +32,9 @@ class TransactionsRepository extends Repository<Transaction> {
         total: 0,
       },
     )
-    balance.total = balance.income - balance.outcome
-    return balance
+    const total = income - outcome
+
+    return { income, outcome, total }
   }
 }
 

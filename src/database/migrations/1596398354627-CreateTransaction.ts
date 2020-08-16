@@ -5,7 +5,7 @@ export default class CreateTransaction1596398354627
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'Transactions',
+        name: 'transactions',
         columns: [
           {
             name: 'id',
@@ -47,8 +47,9 @@ export default class CreateTransaction1596398354627
         ],
         foreignKeys: [
           {
+            name: 'categories',
             columnNames: ['category_id'],
-            referencedTableName: 'Categories',
+            referencedTableName: 'categories',
             referencedColumnNames: ['id'],
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
@@ -59,6 +60,6 @@ export default class CreateTransaction1596398354627
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('Transactions')
+    await queryRunner.dropTable('transactions')
   }
 }
